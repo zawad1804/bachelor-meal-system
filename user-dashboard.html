@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard | Bachelor Meal System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="glass-card">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Meal Manager</a>
+      <div class="nav-links">
+        <a href="user-dashboard.html" class="active">Dashboard</a>
+        <a href="meals.html">My Meals</a>
+        <a href="bazar.html">Bazar</a>
+        <a href="payments.html">Payments</a>
+        <a href="profile.html">Profile</a>
+        <a href="logout.html">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="dashboard-container">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+      <h1>Welcome, <span class="user-name">John Doe</span></h1>
+      <div class="current-date">May 15, 2025</div>
+    </header>
+
+    <!-- Notifications Section -->
+    <section class="glass-card notifications-section">
+      <h2 class="section-heading">Notifications</h2>
+      <div class="notification emergency">
+        <div class="notification-icon">🚨</div>
+        <div class="notification-content">
+          <h3>Emergency Alert</h3>
+          <p>Cook is absent today (May 15). Please arrange your own lunch.</p>
+          <div class="notification-time">10:30 AM</div>
+        </div>
+      </div>
+      <div class="notification reminder">
+        <div class="notification-icon">🛒</div>
+        <div class="notification-content">
+          <h3>Bazar Reminder</h3>
+          <p>Your grocery shopping turn is tomorrow (May 16).</p>
+          <div class="notification-time">Yesterday</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <section class="glass-card stats-section">
+      <h2 class="section-heading">Monthly Overview</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">24</div>
+          <div class="stat-label">Meals Taken</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">$72</div>
+          <div class="stat-label">Total Due</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4.2</div>
+          <div class="stat-label">Avg. Rating</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">May 16</div>
+          <div class="stat-label">Next Bazar</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bazar Inventory -->
+    <section class="glass-card inventory-section">
+      <h2 class="section-heading">Bazar Inventory</h2>
+      <table class="inventory-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity Left</th>
+            <th>Last Purchased</th>
+            <th>Last Purchased By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rice</td>
+            <td>3.5 kg</td>
+            <td>May 10</td>
+            <td>Ali</td>
+          </tr>
+          <tr>
+            <td>Oil</td>
+            <td>1.2 L</td>
+            <td>May 12</td>
+            <td>John</td>
+          </tr>
+          <tr>
+            <td>Eggs</td>
+            <td>6 pieces</td>
+            <td>May 14</td>
+            <td>Rahim</td>
+          </tr>
+          <tr>
+            <td>Potatoes</td>
+            <td>2 kg</td>
+            <td>May 13</td>
+            <td>Karim</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Rate Recent Meals -->
+    <section class="glass-card rating-section">
+      <h2 class="section-heading">Rate Recent Meals</h2>
+      <div class="meals-to-rate">
+        <div class="meal-card">
+          <div class="meal-info">
+            <h3>Lunch - May 14</h3>
+            <p>Fried Rice with Chicken</p>
+          </div>
+          <form class="rating-form">
+            <div class="rating-stars">
+              <input type="radio" id="meal1-star5" name="meal1-rating" value="5">
+              <label for="meal1-star5">⭐</label>
+              <input type="radio" id="meal1-star4" name="meal1-rating" value="4">
+              <label for="meal1-star4">⭐</label>
+              <input type="radio" id="meal1-star3" name="meal1-rating" value="3">
+              <label for="meal1-star3">⭐</label>
+              <input type="radio" id="meal1-star2" name="meal1-rating" value="2">
+              <label for="meal1-star2">⭐</label>
+              <input type="radio" id="meal1-star1" name="meal1-rating" value="1">
+              <label for="meal1-star1">⭐</label>
+            </div>
+            <button type="submit" class="submit-rating">Submit Rating</button>
+          </form>
+        </div>
+        <div class="meal-card">
+          <div class="meal-info">
+            <h3>Dinner - May 13</h3>
+            <p>Beef Curry with Roti</p>
+          </div>
+          <form class="rating-form">
+            <div class="rating-stars">
+              <input type="radio" id="meal2-star5" name="meal2-rating" value="5">
+              <label for="meal2-star5">⭐</label>
+              <input type="radio" id="meal2-star4" name="meal2-rating" value="4">
+              <label for="meal2-star4">⭐</label>
+              <input type="radio" id="meal2-star3" name="meal2-rating" value="3">
+              <label for="meal2-star3">⭐</label>
+              <input type="radio" id="meal2-star2" name="meal2-rating" value="2">
+              <label for="meal2-star2">⭐</label>
+              <input type="radio" id="meal2-star1" name="meal2-rating" value="1">
+              <label for="meal2-star1">⭐</label>
+            </div>
+            <button type="submit" class="submit-rating">Submit Rating</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

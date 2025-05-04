@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Meals | Bachelor Meal System</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Meals Page Specific Styles */
+    .meals-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .meals-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .meals-header h1 {
+      color: var(--primary);
+      margin: 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    .filter-options {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .filter-options select {
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      color: var(--dark-primary);
+    }
+
+    /* Meals Table */
+    .meals-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .meals-table th {
+      background: rgba(255, 255, 255, 0.3);
+      text-align: center;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+    }
+
+    .meals-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .meals-table tr:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Rating System */
+    .rating-options {
+      display: flex;
+      gap: 0.2rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rating-options label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .rating-options label:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    .rating-options input[type="radio"]:checked + label {
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
+    }
+
+    /* Update Button */
+    .update-btn {
+      padding: 0.5rem 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .update-btn:hover {
+      background: var(--dark-primary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .meals-table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .filter-options {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .rating-options {
+        flex-wrap: wrap;
+        gap: 0.1rem;
+      }
+
+      .rating-options label {
+        width: 22px;
+        height: 22px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="glass-card">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Meal Manager</a>
+      <div class="nav-links">
+        <a href="user-dashboard.html">Dashboard</a>
+        <a href="meals.html" class="active">My Meals</a>
+        <a href="bazar.html">Bazar</a>
+        <a href="payments.html">Payments</a>
+        <a href="profile.html">Profile</a>
+        <a href="logout.html">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="meals-container">
+    <header class="meals-header">
+      <h1>My Meal History</h1>
+      <div class="filter-options">
+        <select id="month-filter">
+          <option value="all">All Months</option>
+          <option value="may" selected>May 2025</option>
+          <option value="april">April 2025</option>
+          <option value="march">March 2025</option>
+        </select>
+        <select id="meal-type-filter">
+          <option value="all">All Meal Types</option>
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch">Lunch</option>
+          <option value="dinner">Dinner</option>
+        </select>
+      </div>
+    </header>
+
+    <section class="glass-card meals-list">
+      <table class="meals-table">
+        <thead>
+          <tr>
+            <th>Meal ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Meal Description</th>
+            <th>Price</th>
+            <th>Rating (1-5)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Meal Entry 1 -->
+          <tr>
+            <td>#M-1425</td>
+            <td>May 15, 2025</td>
+            <td>Lunch</td>
+            <td>Chicken Biryani with Salad</td>
+            <td>$3.00</td>
+            <td>
+              <div class="rating-options">
+                <input type="radio" id="meal1425-rating1" name="meal1425-rating" value="1">
+                <label for="meal1425-rating1">1</label>
+                <input type="radio" id="meal1425-rating2" name="meal1425-rating" value="2">
+                <label for="meal1425-rating2">2</label>
+                <input type="radio" id="meal1425-rating3" name="meal1425-rating" value="3">
+                <label for="meal1425-rating3">3</label>
+                <input type="radio" id="meal1425-rating4" name="meal1425-rating" value="4">
+                <label for="meal1425-rating4">4</label>
+                <input type="radio" id="meal1425-rating5" name="meal1425-rating" value="5">
+                <label for="meal1425-rating5">5</label>
+              </div>
+            </td>
+            <td>
+              <button class="update-btn">Update</button>
+            </td>
+          </tr>
+          
+          <!-- Meal Entry 2 -->
+          <tr>
+            <td>#M-1424</td>
+            <td>May 15, 2025</td>
+            <td>Breakfast</td>
+            <td>Paratha with Egg and Tea</td>
+            <td>$2.50</td>
+            <td>
+              <div class="rating-options">
+                <input type="radio" id="meal1424-rating1" name="meal1424-rating" value="1">
+                <label for="meal1424-rating1">1</label>
+                <input type="radio" id="meal1424-rating2" name="meal1424-rating" value="2">
+                <label for="meal1424-rating2">2</label>
+                <input type="radio" id="meal1424-rating3" name="meal1424-rating" value="3">
+                <label for="meal1424-rating3">3</label>
+                <input type="radio" id="meal1424-rating4" name="meal1424-rating" value="4" checked>
+                <label for="meal1424-rating4">4</label>
+                <input type="radio" id="meal1424-rating5" name="meal1424-rating" value="5">
+                <label for="meal1424-rating5">5</label>
+              </div>
+            </td>
+            <td>
+              <button class="update-btn">Update</button>
+            </td>
+          </tr>
+          
+          <!-- Meal Entry 3 -->
+          <tr>
+            <td>#M-1423</td>
+            <td>May 14, 2025</td>
+            <td>Dinner</td>
+            <td>Beef Curry with Rice</td>
+            <td>$3.50</td>
+            <td>
+              <div class="rating-options">
+                <input type="radio" id="meal1423-rating1" name="meal1423-rating" value="1">
+                <label for="meal1423-rating1">1</label>
+                <input type="radio" id="meal1423-rating2" name="meal1423-rating" value="2" checked>
+                <label for="meal1423-rating2">2</label>
+                <input type="radio" id="meal1423-rating3" name="meal1423-rating" value="3">
+                <label for="meal1423-rating3">3</label>
+                <input type="radio" id="meal1423-rating4" name="meal1423-rating" value="4">
+                <label for="meal1423-rating4">4</label>
+                <input type="radio" id="meal1423-rating5" name="meal1423-rating" value="5">
+                <label for="meal1423-rating5">5</label>
+              </div>
+            </td>
+            <td>
+              <button class="update-btn">Update</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

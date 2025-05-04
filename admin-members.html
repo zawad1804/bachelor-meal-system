@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Members | Meal Manager</title>
+  <style>
+    :root {
+      --light-bg: #F3F3E0;
+      --primary: #27548A;
+      --dark-primary: #183B4E;
+      --accent: #DDA853;
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: var(--light-bg);
+      color: var(--dark-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Navigation Bar */
+    nav.glass-card {
+      width: 100%;
+      border-radius: 0;
+      margin-top: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark-primary);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Glass Card */
+    .glass-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 1rem;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 1200px;
+      margin: 1rem auto;
+    }
+
+    /* Section Headings */
+    .section-heading {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      font-size: 2rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    /* Members Table */
+    .members-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .members-table th {
+      background: var(--primary);
+      color: white;
+      text-align: left;
+      padding: 1rem;
+    }
+
+    .members-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .members-table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .members-table tr:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Buttons */
+    .button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      color: white;
+      background-color: var(--primary);
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: var(--dark-primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-accent {
+      background-color: var(--accent);
+      color: var(--dark-primary);
+    }
+
+    .btn-accent:hover {
+      background-color: #c49344;
+    }
+
+    .btn-sm {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Status Badges */
+    .badge {
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .badge-pending {
+      background-color: rgba(255, 193, 7, 0.2);
+      color: #ff9800;
+    }
+
+    .badge-approved {
+      background-color: rgba(76, 175, 80, 0.2);
+      color: #4caf50;
+    }
+
+    /* Forms */
+    .assign-form {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .form-control {
+      padding: 0.75rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--dark-primary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .nav-links {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .section-heading {
+        font-size: 1.75rem;
+      }
+      
+      .assign-form {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-heading {
+        font-size: 1.5rem;
+      }
+      
+      .members-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="glass-card">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Meal Manager</a>
+      <div class="nav-links">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <a href="admin-payments.html">Payments</a>
+        <a href="admin-bazar.html">Bazar</a>
+        <a href="admin-inventory.html">Inventory</a>
+        <a href="admin-members.html" class="active">Members</a>
+        <a href="logout.html">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="glass-card">
+    <h2 class="section-heading">Manage Members</h2>
+    
+    <table class="members-table">
+      <thead>
+        <tr>
+          <th>Member</th>
+          <th>Room</th>
+          <th>Phone</th>
+          <th>Meals This Month</th>
+          <th>Payment Due</th>
+          <th>Next Bazar</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Member 1 -->
+        <tr>
+          <td>John Doe<br><small>john@example.com</small></td>
+          <td>A-101</td>
+          <td>+8801712345678</td>
+          <td>24</td>
+          <td>$72.00</td>
+          <td>
+            <div class="assign-form">
+              <input type="date" class="form-control" value="2025-05-20">
+              <button class="button btn-sm btn-accent">Assign</button>
+            </div>
+          </td>
+          <td>
+            <button class="button btn-sm">View Details</button>
+          </td>
+        </tr>
+        
+        <!-- Member 2 -->
+        <tr>
+          <td>Rahim Khan<br><small>rahim@example.com</small></td>
+          <td>A-102</td>
+          <td>+8801812345678</td>
+          <td>22</td>
+          <td>$66.00</td>
+          <td>
+            <div class="assign-form">
+              <input type="date" class="form-control" value="2025-05-22">
+              <button class="button btn-sm btn-accent">Assign</button>
+            </div>
+          </td>
+          <td>
+            <button class="button btn-sm">View Details</button>
+          </td>
+        </tr>
+        
+        <!-- Member 3 -->
+        <tr>
+          <td>Fatima Akter<br><small>fatima@example.com</small></td>
+          <td>A-103</td>
+          <td>+8801912345678</td>
+          <td>20</td>
+          <td>$60.00</td>
+          <td>
+            <div class="assign-form">
+              <input type="date" class="form-control">
+              <button class="button btn-sm btn-accent">Assign</button>
+            </div>
+          </td>
+          <td>
+            <button class="button btn-sm">View Details</button>
+          </td>
+        </tr>
+        
+        <!-- Member 4 -->
+        <tr>
+          <td>Karim Uddin<br><small>karim@example.com</small></td>
+          <td>B-101</td>
+          <td>+8801612345678</td>
+          <td>18</td>
+          <td>$54.00</td>
+          <td>
+            <div class="assign-form">
+              <input type="date" class="form-control" value="2025-05-18">
+              <button class="button btn-sm btn-accent">Reassign</button>
+            </div>
+          </td>
+          <td>
+            <button class="button btn-sm">View Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="glass-card">
+    <h2 class="section-heading">Add New Member</h2>
+    
+    <form id="addMemberForm" style="max-width: 600px; margin: 0 auto;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+        <div>
+          <label for="member-name">Full Name</label>
+          <input type="text" id="member-name" class="form-control" required style="width: 100%;">
+        </div>
+        <div>
+          <label for="member-email">Email</label>
+          <input type="email" id="member-email" class="form-control" required style="width: 100%;">
+        </div>
+        <div>
+          <label for="member-phone">Phone</label>
+          <input type="tel" id="member-phone" class="form-control" required style="width: 100%;">
+        </div>
+        <div>
+          <label for="member-room">Room No.</label>
+          <input type="text" id="member-room" class="form-control" required style="width: 100%;">
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <button type="submit" class="button">Add Member</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Add Member Form Handling
+    document.getElementById('addMemberForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('member-name').value;
+      const email = document.getElementById('member-email').value;
+      const phone = document.getElementById('member-phone').value;
+      const room = document.getElementById('member-room').value;
+      
+      // In a real app, this would send to backend
+      alert(`New member added!\nName: ${name}\nRoom: ${room}`);
+      this.reset();
+    });
+
+    // Assign Bazar Date buttons
+    document.querySelectorAll('.btn-accent').forEach(btn => {
+      if (btn.textContent === 'Assign' || btn.textContent === 'Reassign') {
+        btn.addEventListener('click', function() {
+          const row = this.closest('tr');
+          const memberName = row.querySelector('td:first-child').textContent.split('\n')[0];
+          const dateInput = row.querySelector('input[type="date"]');
+          
+          if (dateInput.value) {
+            alert(`Bazar assigned to ${memberName} on ${new Date(dateInput.value).toLocaleDateString()}`);
+          } else {
+            alert('Please select a date first');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
