@@ -25,7 +25,7 @@
       min-height: 100vh;
     }
 
-    /* Navigation Bar - Matching Other Pages */
+    /* Navigation Bar */
     nav.glass-card {
       width: 100%;
       border-radius: 0;
@@ -68,7 +68,7 @@
       text-decoration: none;
     }
 
-    /* Glass Card - Matching Other Pages */
+    /* Glass Card */
     .glass-card {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -89,7 +89,7 @@
       padding: 0 1rem;
     }
 
-    /* Section Headings - Matching Other Pages */
+    /* Section Headings */
     .section-heading {
       text-align: center;
       margin-bottom: 2rem;
@@ -164,7 +164,7 @@
       background: rgba(255, 255, 255, 0.2);
     }
 
-    /* Buttons - Matching Other Pages */
+    /* Buttons */
     .button {
       display: inline-block;
       padding: 0.75rem 1.5rem;
@@ -212,7 +212,7 @@
     }
 
     /* Forms */
-    .notification-form {
+    .notification-form, .meal-form {
       background: rgba(255, 255, 255, 0.1);
       padding: 2rem;
       border-radius: 0.75rem;
@@ -243,6 +243,75 @@
       min-height: 120px;
     }
 
+    /* Meal Creation Specific Styles */
+    .item-selection-container {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .item-select {
+      flex: 2;
+    }
+
+    .add-item-btn {
+      flex: 1;
+    }
+
+    .selected-items-list {
+      margin-top: 1rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 5px;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .selected-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .selected-item:last-child {
+      border-bottom: none;
+    }
+
+    .item-quantity {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .quantity-input {
+      width: 60px;
+      padding: 0.5rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .remove-item {
+      color: #ff6b6b;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: 1rem;
+    }
+
+    /* Date input styling */
+    input[type="date"] {
+      font-family: inherit;
+      padding: 0.75rem;
+    }
+
+    /* Number input styling */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
       .nav-container {
@@ -263,6 +332,10 @@
       .section-heading {
         font-size: 1.75rem;
       }
+
+      .item-selection-container {
+        flex-direction: column;
+      }
     }
 
     @media (max-width: 480px) {
@@ -274,6 +347,17 @@
         display: block;
         overflow-x: auto;
       }
+
+      .selected-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .item-quantity {
+        width: 100%;
+        justify-content: space-between;
+      }
     }
   </style>
 </head>
@@ -284,8 +368,7 @@
       <a href="index.html" class="nav-logo">Meal Manager</a>
       <div class="nav-links">
         <a href="admin-dashboard.html" class="active">Dashboard</a>
-        <a href="admin-payments.html">Payments</a>
-        <a href="admin-bazar.html">Bazar</a>
+        <!-- <a href="admin-payments.html">Payments</a> -->
         <a href="admin-inventory.html">Inventory</a>
         <a href="admin-members.html">Members</a>
         <a href="logout.html">Logout</a>
@@ -321,6 +404,59 @@
         <div class="card-value">6</div>
         <p>Currently active</p>
         <a href="admin-members.html" class="button btn-accent">Manage</a>
+      </div>
+    </div>
+
+    <!-- Meal Creation Section -->
+    <div class="glass-card">
+      <h2 class="section-heading">Create New Meal</h2>
+      <div class="meal-form">
+        <form id="mealCreationForm">
+          <div class="form-group">
+            <label for="meal-date">Date</label>
+            <input type="date" id="meal-date" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="meal-name">Meal Name</label>
+            <input type="text" id="meal-name" class="form-control" placeholder="e.g., Lunch, Dinner, Special Meal" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="meal-price">Price per Person ($)</label>
+            <input type="number" id="meal-price" class="form-control" min="0" step="0.01" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Select Items for this Meal</label>
+            <div class="item-selection-container">
+              <select id="inventory-items" class="form-control item-select">
+                <option value="">Select an item from inventory</option>
+                <option value="rice">Rice (Available: 5kg)</option>
+                <option value="chicken">Chicken (Available: 3kg)</option>
+                <option value="beef">Beef (Available: 2kg)</option>
+                <option value="fish">Fish (Available: 4kg)</option>
+                <option value="vegetables">Vegetables (Available: 2kg)</option>
+                <option value="lentils">Lentils (Available: 1kg)</option>
+                <option value="eggs">Eggs (Available: 12 pieces)</option>
+                <option value="bread">Bread (Available: 2 loaves)</option>
+              </select>
+              <button type="button" id="add-item-btn" class="button add-item-btn">Add Item</button>
+            </div>
+            
+            <div class="selected-items-list" id="selected-items-container">
+              <!-- Selected items will appear here -->
+              <p class="no-items-message">No items selected yet</p>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="meal-notes">Additional Notes (Optional)</label>
+            <textarea id="meal-notes" class="form-control" rows="3"></textarea>
+          </div>
+          
+          <button type="submit" class="button">Create Meal</button>
+        </form>
       </div>
     </div>
 
@@ -426,43 +562,5 @@
       </table>
     </div>
   </div>
-
-  <script>
-    // Notification Form Handling
-    document.getElementById('notificationForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const title = document.getElementById('notification-title').value;
-      const message = document.getElementById('notification-message').value;
-      const priority = document.getElementById('notification-priority').value;
-      
-      // In a real app, this would send to backend
-      alert(`Notification sent!\nTitle: ${title}\nPriority: ${priority}`);
-      this.reset();
-    });
-
-    // Approve/Reject buttons
-    document.querySelectorAll('.button').forEach(btn => {
-      if (btn.textContent === 'Approve') {
-        btn.addEventListener('click', function() {
-          const row = this.closest('tr');
-          const statusCell = row.querySelector('td:nth-child(5)');
-          statusCell.innerHTML = '<span class="badge badge-approved">Approved</span>';
-          row.querySelectorAll('button').forEach(b => b.disabled = true);
-        });
-      }
-    });
-
-    document.querySelectorAll('.button.btn-accent').forEach(btn => {
-      if (btn.textContent === 'Reject') {
-        btn.addEventListener('click', function() {
-          const row = this.closest('tr');
-          const statusCell = row.querySelector('td:nth-child(5)');
-          statusCell.innerHTML = '<span class="badge">Rejected</span>';
-          row.querySelectorAll('button').forEach(b => b.disabled = true);
-        });
-      }
-    });
-  </script>
 </body>
 </html>
