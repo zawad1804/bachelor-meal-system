@@ -45,6 +45,65 @@
       color: var(--dark-primary);
     }
 
+    /* Meal Scheduler Section */
+    .meal-scheduler {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 1rem;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      margin-bottom: 2rem;
+    }
+
+    .scheduler-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--dark-primary);
+    }
+
+    .price-display {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-top: 0.5rem;
+    }
+
+    .schedule-btn {
+      grid-column: 1 / -1;
+      padding: 0.75rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .schedule-btn:hover {
+      background: var(--dark-primary);
+    }
+
     /* Meals Table */
     .meals-table {
       width: 100%;
@@ -140,6 +199,10 @@
         height: 22px;
         font-size: 0.8rem;
       }
+
+      .scheduler-form {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -178,6 +241,52 @@
       </div>
     </header>
 
+    <!-- Meal Scheduler Section -->
+    <section class="glass-card meal-scheduler">
+      <h2 class="section-heading">Schedule Your Meal</h2>
+      <form class="scheduler-form" id="mealSchedulerForm">
+        <div class="form-group">
+          <label for="meal-date">Date</label>
+          <input type="date" id="meal-date" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="meal-time">Meal Time</label>
+          <select id="meal-time" class="form-control" required>
+            <option value="">Select Time</option>
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="meal-name">Meal Name</label>
+          <select id="meal-name" class="form-control" required>
+            <option value="">Select Meal</option>
+            <option value="chicken-biryani" data-price="3.00">Chicken Biryani ($3.00)</option>
+            <option value="beef-curry" data-price="3.50">Beef Curry ($3.50)</option>
+            <option value="fish-curry" data-price="3.00">Fish Curry ($3.00)</option>
+            <option value="vegetable-khichuri" data-price="2.50">Vegetable Khichuri ($2.50)</option>
+            <option value="paratha-egg" data-price="2.50">Paratha with Egg ($2.50)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="meal-quantity">Quantity</label>
+          <input type="number" id="meal-quantity" class="form-control" min="1" value="1" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Total Price</label>
+          <div class="price-display" id="total-price">$0.00</div>
+        </div>
+        
+        <button type="submit" class="schedule-btn">Schedule Meal</button>
+      </form>
+    </section>
+
+    <!-- Meals History Section -->
     <section class="glass-card meals-list">
       <table class="meals-table">
         <thead>
@@ -186,6 +295,7 @@
             <th>Date</th>
             <th>Time</th>
             <th>Meal Description</th>
+            <th>Quantity</th>
             <th>Price</th>
             <th>Rating (1-5)</th>
             <th>Action</th>
@@ -198,6 +308,7 @@
             <td>May 15, 2025</td>
             <td>Lunch</td>
             <td>Chicken Biryani with Salad</td>
+            <td>1</td>
             <td>$3.00</td>
             <td>
               <div class="rating-options">
@@ -214,64 +325,4 @@
               </div>
             </td>
             <td>
-              <button class="update-btn">Update</button>
-            </td>
-          </tr>
-          
-          <!-- Meal Entry 2 -->
-          <tr>
-            <td>#M-1424</td>
-            <td>May 15, 2025</td>
-            <td>Breakfast</td>
-            <td>Paratha with Egg and Tea</td>
-            <td>$2.50</td>
-            <td>
-              <div class="rating-options">
-                <input type="radio" id="meal1424-rating1" name="meal1424-rating" value="1">
-                <label for="meal1424-rating1">1</label>
-                <input type="radio" id="meal1424-rating2" name="meal1424-rating" value="2">
-                <label for="meal1424-rating2">2</label>
-                <input type="radio" id="meal1424-rating3" name="meal1424-rating" value="3">
-                <label for="meal1424-rating3">3</label>
-                <input type="radio" id="meal1424-rating4" name="meal1424-rating" value="4" checked>
-                <label for="meal1424-rating4">4</label>
-                <input type="radio" id="meal1424-rating5" name="meal1424-rating" value="5">
-                <label for="meal1424-rating5">5</label>
-              </div>
-            </td>
-            <td>
-              <button class="update-btn">Update</button>
-            </td>
-          </tr>
-          
-          <!-- Meal Entry 3 -->
-          <tr>
-            <td>#M-1423</td>
-            <td>May 14, 2025</td>
-            <td>Dinner</td>
-            <td>Beef Curry with Rice</td>
-            <td>$3.50</td>
-            <td>
-              <div class="rating-options">
-                <input type="radio" id="meal1423-rating1" name="meal1423-rating" value="1">
-                <label for="meal1423-rating1">1</label>
-                <input type="radio" id="meal1423-rating2" name="meal1423-rating" value="2" checked>
-                <label for="meal1423-rating2">2</label>
-                <input type="radio" id="meal1423-rating3" name="meal1423-rating" value="3">
-                <label for="meal1423-rating3">3</label>
-                <input type="radio" id="meal1423-rating4" name="meal1423-rating" value="4">
-                <label for="meal1423-rating4">4</label>
-                <input type="radio" id="meal1423-rating5" name="meal1423-rating" value="5">
-                <label for="meal1423-rating5">5</label>
-              </div>
-            </td>
-            <td>
-              <button class="update-btn">Update</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
-</body>
-</html>
+              <button class="update-btn">Update</button
