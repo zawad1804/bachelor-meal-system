@@ -224,7 +224,7 @@
 
   <main class="meals-container">
     <header class="meals-header">
-      <h1>My Meal History</h1>
+      <h1>Schedule Your Meal</h1>
       <div class="filter-options">
         <select id="month-filter">
           <option value="all">All Months</option>
@@ -288,6 +288,7 @@
 
     <!-- Meals History Section -->
     <section class="glass-card meals-list">
+      <h2 class="section-heading">My Meal History</h2>
       <table class="meals-table">
         <thead>
           <tr>
@@ -325,4 +326,89 @@
               </div>
             </td>
             <td>
-              <button class="update-btn">Update</button
+              <button class="update-btn">Update</button>
+            </td>
+          </tr>
+          
+          <!-- Meal Entry 2 -->
+          <tr>
+            <td>#M-1424</td>
+            <td>May 14, 2025</td>
+            <td>Dinner</td>
+            <td>Beef Curry with Rice</td>
+            <td>1</td>
+            <td>$3.50</td>
+            <td>
+              <div class="rating-options">
+                <input type="radio" id="meal1424-rating1" name="meal1424-rating" value="1">
+                <label for="meal1424-rating1">1</label>
+                <input type="radio" id="meal1424-rating2" name="meal1424-rating" value="2">
+                <label for="meal1424-rating2">2</label>
+                <input type="radio" id="meal1424-rating3" name="meal1424-rating" value="3">
+                <label for="meal1424-rating3">3</label>
+                <input type="radio" id="meal1424-rating4" name="meal1424-rating" value="4">
+                <label for="meal1424-rating4">4</label>
+                <input type="radio" id="meal1424-rating5" name="meal1424-rating" value="5">
+                <label for="meal1424-rating5">5</label>
+              </div>
+            </td>
+            <td>
+              <button class="update-btn">Update</button>
+            </td>
+          </tr>
+          
+          <!-- Meal Entry 3 -->
+          <tr>
+            <td>#M-1423</td>
+            <td>May 14, 2025</td>
+            <td>Breakfast</td>
+            <td>Paratha with Egg</td>
+            <td>2</td>
+            <td>$5.00</td>
+            <td>
+              <div class="rating-options">
+                <input type="radio" id="meal1423-rating1" name="meal1423-rating" value="1">
+                <label for="meal1423-rating1">1</label>
+                <input type="radio" id="meal1423-rating2" name="meal1423-rating" value="2">
+                <label for="meal1423-rating2">2</label>
+                <input type="radio" id="meal1423-rating3" name="meal1423-rating" value="3">
+                <label for="meal1423-rating3">3</label>
+                <input type="radio" id="meal1423-rating4" name="meal1423-rating" value="4">
+                <label for="meal1423-rating4">4</label>
+                <input type="radio" id="meal1423-rating5" name="meal1423-rating" value="5">
+                <label for="meal1423-rating5">5</label>
+              </div>
+            </td>
+            <td>
+              <button class="update-btn">Update</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    // Price calculation script
+    document.addEventListener('DOMContentLoaded', function() {
+      const mealSelect = document.getElementById('meal-name');
+      const quantityInput = document.getElementById('meal-quantity');
+      const priceDisplay = document.getElementById('total-price');
+      
+      function calculateTotal() {
+        const selectedOption = mealSelect.options[mealSelect.selectedIndex];
+        const price = selectedOption ? parseFloat(selectedOption.dataset.price) : 0;
+        const quantity = parseInt(quantityInput.value) || 0;
+        const total = (price * quantity).toFixed(2);
+        priceDisplay.textContent = `$${total}`;
+      }
+      
+      mealSelect.addEventListener('change', calculateTotal);
+      quantityInput.addEventListener('input', calculateTotal);
+      
+      // Initialize calculation
+      calculateTotal();
+    });
+  </script>
+</body>
+</html>
