@@ -89,24 +89,35 @@
       background: var(--dark-primary);
     }
 
-    /* Meal History Filter Section */
-    .meals-filter {
+    /* Meal History Section */
+    .meal-history {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: 1rem;
-      padding: 1.5rem;
+      padding: 2rem;
       backdrop-filter: blur(10px);
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
       margin-bottom: 2rem;
+    }
+
+    .meal-history-header {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .meal-history-header h2 {
+      color: var(--primary);
+      margin: 0;
     }
 
     .filter-options {
       display: flex;
       gap: 1rem;
-      width: 100%;
-      justify-content: center;
+      justify-content: flex-end;
       flex-wrap: wrap;
     }
 
@@ -197,10 +208,14 @@
         overflow-x: auto;
       }
       
+      .meal-history-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
       .filter-options {
         width: 100%;
-        flex-direction: column;
-        align-items: center;
+        justify-content: flex-start;
       }
       
       .rating-options {
@@ -238,7 +253,7 @@
 
   <main class="meals-container">
     <header class="meals-header">
-      <h1>My Meal History</h1>
+      <h1>My Meal Planner</h1>
     </header>
 
     <!-- Meal Scheduler Section -->
@@ -286,27 +301,26 @@
       </form>
     </section>
 
-    <!-- Meal History Filter Section -->
-    <section class="glass-card meals-filter">
-      <h2 class="section-heading">Meal History</h2>  
-      <div class="filter-options">
-        <select id="month-filter">
-          <option value="all">All Months</option>
-          <option value="may" selected>May 2025</option>
-          <option value="april">April 2025</option>
-          <option value="march">March 2025</option>
-        </select>
-        <select id="meal-type-filter">
-          <option value="all">All Meal Types</option>
-          <option value="breakfast">Breakfast</option>
-          <option value="lunch">Lunch</option>
-          <option value="dinner">Dinner</option>
-        </select>
+    <!-- Meal History Section -->
+    <section class="glass-card meal-history">
+      <div class="meal-history-header">
+        <h2>My Meal History</h2>
+        <div class="filter-options">
+          <select id="month-filter">
+            <option value="all">All Months</option>
+            <option value="may" selected>May 2025</option>
+            <option value="april">April 2025</option>
+            <option value="march">March 2025</option>
+          </select>
+          <select id="meal-type-filter">
+            <option value="all">All Meal Types</option>
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+          </select>
+        </div>
       </div>
-    </section>
-
-    <!-- Meals History Section -->
-    <section class="glass-card meals-list">
+      
       <table class="meals-table">
         <thead>
           <tr>
